@@ -11,4 +11,18 @@ function main() {
     // 指定したフォルダをDriveのルートフォルダに追加(元のファルダにも属したまま)
     const addFolderResult = DriveApp.addFolder(sampleFolder);
     Logger.log(addFolderResult.getName());
+
+    // continueFileIterator(continuationToken)
+
+    // continueFolderIterator(continuationToken)
+
+    // createFile(blob)
+
+    // 新規テキストファイル作成
+    const createFileResult2 = DriveApp.createFile('Sample.txt', 'create file result A');
+    Logger.log(createFileResult2.getName());
+
+    // MIMEタイプ指定で新規ファイル作成
+    const createFileResult3 = DriveApp.createFile('Sample.html', '<ul><li>A</li><li>B</li><li>C</li></ul>', 'text/html');
+    Logger.log(createFileResult3.getName());
 }
