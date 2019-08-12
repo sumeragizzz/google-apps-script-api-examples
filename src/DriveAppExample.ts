@@ -2,8 +2,8 @@ function runAddFile() {
     const sampleFile = DriveApp.getFileById(PropertiesService.getScriptProperties().getProperty('SAMPLE_FILE_ID'));
     Logger.log(sampleFile.getName());
     // 指定したファイルをDriveのルートフォルダに追加。元のファルダにも属したまま。
-    const addFileResult = DriveApp.addFile(sampleFile);
-    Logger.log(addFileResult.getName());
+    const result = DriveApp.addFile(sampleFile);
+    Logger.log(result.getName());
 }
 
 function runAddFolder() {
@@ -11,8 +11,8 @@ function runAddFolder() {
     Logger.log(sampleFolder.getName());
 
     // 指定したフォルダをDriveのルートフォルダに追加。元のファルダにも属したまま。
-    const addFolderResult = DriveApp.addFolder(sampleFolder);
-    Logger.log(addFolderResult.getName());
+    const result = DriveApp.addFolder(sampleFolder);
+    Logger.log(result.getName());
 }
 
 function runContinueFileIterator() {
@@ -29,30 +29,89 @@ function runCreateFile1() {
 
 function runCreateFile2() {
     // 新規テキストファイル作成。ルートに配置される。
-    const createFileResult2 = DriveApp.createFile('Sample.txt', 'create file result A');
-    Logger.log(createFileResult2.getName());
+    const result = DriveApp.createFile('Sample.txt', 'create file result A');
+    Logger.log(result.getName());
 }
 
 function runCreateFile3() {
     // MIMEタイプ指定で新規ファイル作成。ルートに配置される。
-    const createFileResult3 = DriveApp.createFile('Sample.html', '<ul><li>A</li><li>B</li><li>C</li></ul>', 'text/html');
-    Logger.log(createFileResult3.getName());
+    const result = DriveApp.createFile('Sample.html', '<ul><li>A</li><li>B</li><li>C</li></ul>', 'text/html');
+    Logger.log(result.getName());
 }
 
 function runCreateFolder() {
     // 新規フォルダ作成。ルートに配置される。
-    const createFolderResult = DriveApp.createFolder('CreatedFolder');
-    Logger.log(createFolderResult.getName());
+    const result = DriveApp.createFolder('CreatedFolder');
+    Logger.log(result.getName());
 }
 
 function runGetFileById() {
-    const getFileByIdResult = DriveApp.getFileById(PropertiesService.getScriptProperties().getProperty('SAMPLE_FILE_ID'));
-    Logger.log( getFileByIdResult.getName());
+    // 指定したIDのファイルを取得する。
+    const result = DriveApp.getFileById(PropertiesService.getScriptProperties().getProperty('SAMPLE_FILE_ID'));
+    Logger.log(result.getName());
 }
 
 function runGetFiles() {
+    // Drive上の全ファイルを取得する。戻り値はFileIterator。
     for (const iterator = DriveApp.getFiles(); iterator.hasNext();) {
         const file = iterator.next();
         Logger.log(file.getName());
     }
 }
+
+function runGetFilesByName() {
+    // 指定した名前のファイルを取得する。戻り値はFileIterator。
+    for (const iterator = DriveApp.getFilesByName('SampleFile.gdoc'); iterator.hasNext();) {
+        const file = iterator.next();
+        Logger.log(file.getName());
+    }
+}
+
+function runGetFilesByType() {
+    // 指定したMIMEタイプのファイルを取得する。戻り値はFileIterator。
+    for (const iterator = DriveApp.getFilesByType('application/vnd.google-apps.document'); iterator.hasNext();) {
+        const file = iterator.next();
+        Logger.log(file.getName());
+    }
+}
+
+function runGetFolderById() {
+    // 指定したIDのフォルダを取得する。
+    const result = DriveApp.getFolderById(PropertiesService.getScriptProperties().getProperty('SAMPLE_FOLDER_ID'));
+    Logger.log(result.getName());
+}
+
+function runGetFolders() {
+    // Drive上の全フォルダを取得する。戻り値はFolderIterator。
+    for (const iterator = DriveApp.getFolders(); iterator.hasNext();) {
+        const folder = iterator.next();        
+        Logger.log(folder.getName());
+    }
+}
+
+function runGetFoldersByName() {
+    // 指定した名前のフォルダを取得する。戻り値はFolderIterator。
+    for (const iterator = DriveApp.getFoldersByName('Sample'); iterator.hasNext();) {
+        const folder = iterator.next();        
+        Logger.log(folder.getName());
+    }
+}
+
+function runGetRootFolder() {
+    // ルートフォルダを取得する。
+    const result = DriveApp.getRootFolder();
+    Logger.log(result.getName());
+}
+
+function runGetStorageLimit() {
+    // 使用可能ストレージのbyte数を取得する。
+    const result = DriveApp.getStorageLimit();
+    Logger.log(Math.round(result / 1024) + 'KB');
+}
+
+function runGetStorageUsed() {
+    // 使用済ストレージのbyte数を取得する。
+    const result = DriveApp.getStorageUsed();
+    Logger.log(Math.round(result / 1024) + 'KB');
+}
+
