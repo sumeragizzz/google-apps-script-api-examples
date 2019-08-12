@@ -44,3 +44,15 @@ function runCreateFolder() {
     const createFolderResult = DriveApp.createFolder('CreatedFolder');
     Logger.log(createFolderResult.getName());
 }
+
+function runGetFileById() {
+    const getFileByIdResult = DriveApp.getFileById(PropertiesService.getScriptProperties().getProperty('SAMPLE_FILE_ID'));
+    Logger.log( getFileByIdResult.getName());
+}
+
+function runGetFiles() {
+    for (const iterator = DriveApp.getFiles(); iterator.hasNext();) {
+        const file = iterator.next();
+        Logger.log(file.getName());
+    }
+}
