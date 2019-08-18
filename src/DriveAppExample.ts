@@ -29,7 +29,7 @@ function runCreateFile1() {
 
 function runCreateFile2() {
     // 新規テキストファイル作成。ルートに配置される。
-    const result = DriveApp.createFile('Sample.txt', 'create file result A');
+    const result = DriveApp.createFile('Sample.txt', 'create file');
     Logger.log(result.getName());
 }
 
@@ -115,3 +115,36 @@ function runGetStorageUsed() {
     Logger.log(Math.round(result / 1024) + 'KB');
 }
 
+function runGetTrashedFiles() {
+    // ゴミ箱の全ファイルを取得する。戻り値はFileIterator。
+    for (const iterator = DriveApp.getTrashedFiles(); iterator.hasNext();) {
+        const file = iterator.next();
+        Logger.log(file.getName());
+    }
+}
+
+function runGetTrashedFolders() {
+    // ゴミ箱の全フォルダを取得する。戻り値はFolderIterator。
+    for (const iterator = DriveApp.getTrashedFolders(); iterator.hasNext();) {
+        const folder = iterator.next();
+        Logger.log(folder.getName());
+    }
+}
+
+function runRemoveFile() {
+    const file = DriveApp.createFile('Sample.txt', 'create file');
+    Logger.log(file.getName());
+
+    // 指定したファイルをルートフォルダから削除する。ファイル自体は削除しない。
+    const result = DriveApp.removeFile(file);
+    Logger.log(result.getName());
+}
+
+function runRemoveFolder() {
+    const folder = DriveApp.createFolder('CreatedFolder');
+    Logger.log(folder.getName());
+
+    // 指定したフォルダをルートフォルダから削除する。フォルダ自体は削除しない。
+    const result = DriveApp.removeFolder(folder);
+    Logger.log(result.getName());
+}
