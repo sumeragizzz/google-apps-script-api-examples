@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="ja">
+    <head>
+        <meta charset="utf-8">
+        <title>Sample Web Application</title>
+        <base target="_top">
+        <meta name="description" content="Sample Web Application on GAS">
+    </head>
+    <body>
+        <h1>Sample Web Application</h1>
+        <form method="POST" action="<?= ScriptApp.getService().getUrl(); ?>">
+            <input type="text" name="key" />
+            <input type="text" name="value" />
+            <input type="submit" value="Send" />
+        </form>
+        <? if ('keyResult' in this) { ?>
+            <p>
+                key : <?= keyResult ?><br>
+                value : <?= valueResult ?><br>
+            </p>
+        <? } ?>
+    </body>
+</html>
